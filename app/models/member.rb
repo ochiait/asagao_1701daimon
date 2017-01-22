@@ -24,8 +24,8 @@ class Member < ActiveRecord::Base
     def search(query)
       rel = order("number")
       if query.present?
-        rel = rel.where("name LIKE ? OR full_name LIKE ?",
-          "%#{query}%", "%#{query}%")
+        rel = rel.where("name LIKE ? OR full_name LIKE ? OR number LIKE ?",
+          "%#{query}%", "%#{query}%", "%#{query}%")
       end
       rel
     end

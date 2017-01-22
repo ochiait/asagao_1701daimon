@@ -34,4 +34,17 @@ class MemberTest < ActiveSupport::TestCase
     assert_equal "Yamada Taro", results[0].full_name
     assert_equal "Yamamoto Hanako", results[1].full_name
   end
+
+  test "番号１で検索" do
+    results = Member.search("1")
+    assert_equal 1, results.length
+    assert_equal "Tanaka Jiro", results[0].full_name
+  end
+
+  test "番号２で検索" do
+    results = Member.search("2")
+    assert_equal 1, results.length
+    assert_equal "Yamada Taro", results[0].full_name
+  end
+
 end
