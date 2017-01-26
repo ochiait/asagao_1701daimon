@@ -52,4 +52,18 @@ class ArticleTest < ActiveSupport::TestCase
     refute_includes articles, article3, "未来の記事は含まれない"
     assert_includes articles, article4, "expiredがnilの場合"
   end
+
+  # readable_forスコープのチェック
+  test "readable_for" do
+    article1 = FactoryGirl.create(:article)
+    article2 = FactoryGirl.create(:article, member_only: ture)
+
+    articles = Article.readable_for(nil)
+    assert_includes articles, article1, "現在の記事が含まれる"
+    refute_includes articles, article2, "現在の記事は含まれない"
+
+    articles = Article.readable_for(FactoryGirl.create(:menber))
+    assert_includes articles, article1, "現在の記事が含まれる"
+    assert_includes articles, article2, "会員限定記事が含まれる"
+  end
 end

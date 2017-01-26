@@ -17,6 +17,13 @@ class MemberTest < ActiveSupport::TestCase
     assert_equal "Yamada Taro", member.full_name
   end
 
+  test "authenticate" do
+    member = FactoryGirl.create(:member, name: "Taro",
+      password: "happy", password_confirmation: "happy")
+    assert_nil Member.authenticate("taro", "lucky")
+    assert_equal member, Member.authenticate("taro", "lucky")
+  end
+
   test "結果は０" do
     results = Member.search("c")
     assert_equal 0, results.length
